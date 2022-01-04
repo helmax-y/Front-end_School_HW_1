@@ -10,13 +10,13 @@ import getData from '../../api/getData';
 const Profile = function () {
     const [{ user = {}, stats = {} }, setUser] = useState({});
     const [isError, setIsError] = useState(false);
-    const { tiktuker } = useParams();
+    const { userId } = useParams();
 
     useEffect(() => {
-        getData(`https://tiktok33.p.rapidapi.com/user/info/${tiktuker}`)
+        getData(`https://tiktok33.p.rapidapi.com/user/info/${userId}`)
             .then((data) => setUser(data))
             .catch(() => setIsError(true));
-    }, [tiktuker]);
+    }, [userId]);
 
     return (
         <StyledProfile>

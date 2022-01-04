@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Pagination from '@mui/material/Pagination';
 import Avatar from '@mui/material/Avatar';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 import getData from '../../api/getData';
 import StyledFeed from './StyledFeed';
 import Loader from '../../common/Loader';
 import ErrorToast from '../../common/ErrorToast';
+import Navigation from '../Navigation';
 
 const Feed = function () {
     const [posts, setPosts] = useState([]);
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -29,7 +27,7 @@ const Feed = function () {
     useEffect(() => {
         setIsPaused(false);
         setIsLoading(true);
-    }, [page]);
+    }, [currentPage]);
 
     const handlePausePlay = ({ target }) => {
         if (target.readyState < 3) {
@@ -45,7 +43,7 @@ const Feed = function () {
         }
     };
 
-    const post = posts[page - 1] || {};
+    const post = posts[currentPage - 1] || {};
 
     return (
         <StyledFeed>
@@ -90,32 +88,11 @@ const Feed = function () {
                 </section>
             </article>
 
-            <Pagination
-                className="pagination"
-                shape="rounded"
-                count={posts.length}
-                page={page}
-                onChange={(e, value) => setPage(value)}
+            <Navigation
+                pagesCount={posts.length}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
             />
-
-            <nav>
-                <button
-                    type="button"
-                    className="previous"
-                    onClick={() => page > 1 && setPage(page - 1)}
-                    disabled={page <= 1}
-                >
-                    <ArrowBackIosIcon fontSize="large" />
-                </button>
-                <button
-                    type="button"
-                    className="next"
-                    onClick={() => page < posts.length && setPage(page + 1)}
-                    disabled={page >= posts.length}
-                >
-                    <ArrowForwardIosIcon fontSize="large" />
-                </button>
-            </nav>
 
             <ErrorToast open={isError} />
         </StyledFeed>

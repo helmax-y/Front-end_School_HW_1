@@ -11,7 +11,7 @@ const App = function () {
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<Feed />} />
-                    <Route path="/:tiktuker" element={<Profile />} />
+                    <Route path="/:userId" element={<Profile />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </HashRouter>
