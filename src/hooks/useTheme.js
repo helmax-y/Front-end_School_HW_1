@@ -3,7 +3,13 @@ import { useState } from 'react';
 import themes from '../assets/styles/theme';
 
 const useTheme = (initialTheme) => {
-    const [theme, setTheme] = useState(initialTheme);
+    let approvedInitialTheme = initialTheme;
+
+    if (initialTheme !== 'light' && initialTheme !== 'dark') {
+        approvedInitialTheme = 'light';
+    }
+
+    const [theme, setTheme] = useState(approvedInitialTheme);
 
     const applyTheme = (newTheme) => {
         window.localStorage.setItem('theme', newTheme);

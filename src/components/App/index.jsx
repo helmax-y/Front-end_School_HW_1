@@ -9,7 +9,7 @@ import ThemeSwitch from '../ThemeSwitch';
 import useTheme from '../../hooks/useTheme';
 
 const App = function () {
-    const { theme, toggleTheme, isDark } = useTheme(window.localStorage.getItem('theme'));
+    const { theme, toggleTheme, isDark } = useTheme(window.localStorage.getItem('theme') || 'light');
 
     return (
         <ThemeProvider theme={theme}>
