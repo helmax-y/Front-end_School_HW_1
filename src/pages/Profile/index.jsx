@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
+import useFetch from '../../api/useFetch';
+import getUserFeed from '../../api/getUserFeed';
 import StyledProfile from './StyledProfile';
-import VideoGrid from '../VideoGrid';
-import ErrorToast from '../../common/ErrorToast';
-import getData from '../../api/getData';
+import VideoGrid from '../../components/VideoGrid';
+import ErrorToast from '../../components/common/ErrorToast';
 
 const Profile = function () {
-    const [{ user = {}, stats = {} }, setUser] = useState({});
-    const [isError, setIsError] = useState(false);
     const { userId } = useParams();
 
+    const {
+        request,
+        response: { user = {}, stats = {} } = {},
+        isError,
+        setIsError,
+    } = useFetch();
+
     useEffect(() => {
-        getData(`https://tiktok33.p.rapidapi.com/user/info/${userId}`)
-            .then((data) => setUser(data))
-            .catch(() => setIsError(true));
+        getUserFeed(request, userId);
     }, [userId]);
 
     return (

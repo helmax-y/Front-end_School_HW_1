@@ -5,23 +5,27 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-import getData from '../../api/getData';
+import useFetch from '../../api/useFetch';
+import getTrendingFeed from '../../api/getTrendingFeed';
 import StyledFeed from './StyledFeed';
-import Loader from '../../common/Loader';
-import ErrorToast from '../../common/ErrorToast';
-import Navigation from '../Navigation';
+import Loader from '../../components/common/Loader';
+import ErrorToast from '../../components/common/ErrorToast';
+import Navigation from '../../components/Navigation';
 
 const Feed = function () {
-    const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
-    const [isError, setIsError] = useState(false);
+
+    const {
+        request,
+        response: posts = [],
+        isError,
+        isLoading,
+        setIsLoading,
+    } = useFetch();
 
     useEffect(() => {
-        getData('https://tiktok33.p.rapidapi.com/trending/feed')
-            .then((data) => setPosts(data))
-            .catch(() => setIsError(true));
+        getTrendingFeed(request);
     }, []);
 
     useEffect(() => {
@@ -49,7 +53,7 @@ const Feed = function () {
         <StyledFeed>
             <article className="video">
                 <video
-                    src={post.videoUrl}
+                    src={post.video?.playAddr}
                     className="player"
                     controls={false}
                     autoPlay
@@ -65,25 +69,25 @@ const Feed = function () {
                     <PlayArrowIcon className="play-icon" fontSize="large" />
                 )}
 
-                <p className="post-description">{post.text}</p>
+                <p className="post-description">{post.desc}</p>
 
-                <Link className="author" to={post.authorMeta?.name || '/'}>
+                <Link className="author" to={post.author?.uniqueId || '/'}>
                     <Avatar
-                        src={post.authorMeta?.avatar}
-                        alt={post.authorMeta?.nickName}
+                        src={post.author?.avatarThumb}
+                        alt={post.author?.nickname}
                         sx={{ width: 56, height: 56 }}
                     />
-                    <p className="nickname">{post.authorMeta?.nickName}</p>
+                    <p className="nickname">{post.author?.nickname}</p>
                 </Link>
 
                 <section className="stats">
                     <div className="likes">
                         <FavoriteBorderIcon />
-                        <p>{post.diggCount}</p>
+                        <p>{post.stats?.diggCount}</p>
                     </div>
                     <div className="comments">
                         <ChatBubbleOutlineIcon />
-                        <p>{post.commentCount}</p>
+                        <p>{post.stats?.commentCount}</p>
                     </div>
                 </section>
             </article>

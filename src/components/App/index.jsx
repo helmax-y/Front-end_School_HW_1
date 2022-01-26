@@ -1,8 +1,9 @@
 import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import GlobalStyle from './styles';
-import Feed from './components/Feed';
-import Profile from './components/Profile';
+
+import Feed from '../../pages/Feed';
+import Profile from '../../pages/Profile';
+import GlobalStyle from '../../assets/styles';
 
 const App = function () {
     return (
