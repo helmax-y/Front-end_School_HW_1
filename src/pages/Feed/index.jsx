@@ -4,13 +4,13 @@ import Avatar from '@mui/material/Avatar';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import Navigation from '@helmax-y/tiktuk-navigation';
 
 import useFetch from '../../api/useFetch';
 import getTrendingFeed from '../../api/getTrendingFeed';
 import StyledFeed from './StyledFeed';
 import Loader from '../../components/common/Loader';
 import ErrorToast from '../../components/common/ErrorToast';
-import Navigation from '../../components/Navigation';
 
 const Feed = function () {
     const [currentPage, setCurrentPage] = useState(1);
