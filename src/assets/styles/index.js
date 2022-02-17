@@ -7,6 +7,8 @@ export default createGlobalStyle`
 
     body {
         line-height: 1.5;
+        color: ${({ theme }) => theme.filling};
+        transition: color 0.3s;
     }
 
     a {

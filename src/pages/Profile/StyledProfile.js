@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export default styled.main`
     position: relative;
     min-height: 100vh;
-    background-color: #f9f7fc;
+    background-color: ${({ theme }) => theme.profilePageBackground};
+    transition: background-color 0.5s;
 
     .user-info {
         max-width: 500px;
@@ -58,7 +59,7 @@ export default styled.main`
 
         &:hover {
             background-color: rgba(0, 0, 0, 0.1);
-            border-right: 2px solid grey;
+            border-right: 2px solid ${({ theme }) => theme.navBorder};
         }
 
         p {

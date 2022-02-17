@@ -5,8 +5,9 @@ export default styled.main`
     min-height: 100vh;
     padding-top: 4vh;
     padding-bottom: 1px;
-    background-color: beige;
+    background-color: ${({ theme }) => theme.feedPageBackground};
     box-sizing: border-box;
+    transition: background-color 0.5s;
 
     @media (max-width: 680px) {
         padding-top: 0;
@@ -84,6 +85,10 @@ export default styled.main`
             right: 16px;
             flex-direction: row;
         }
+
+        svg {
+            fill: ${({ theme }) => theme.filling};
+        }
     }
 
     .comments {
@@ -103,6 +108,10 @@ export default styled.main`
         ul {
             justify-content: center;
         }
+
+        .MuiButtonBase-root {
+            color: ${({ theme }) => theme.filling};
+        }
     }
 
     .previous,
@@ -120,6 +129,10 @@ export default styled.main`
 
         &:enabled {
             cursor: pointer;
+
+            svg {
+                fill: ${({ theme }) => theme.filling};
+            }
         }
 
         &:hover:not(:disabled) {
@@ -135,7 +148,7 @@ export default styled.main`
         left: 0;
 
         &:hover:not(:disabled) {
-            border-right: 2px solid grey;
+            border-right: 2px solid ${({ theme }) => theme.navBorder};
         }
     }
 
@@ -143,7 +156,7 @@ export default styled.main`
         right: 0;
 
         &:hover:not(:disabled) {
-            border-left: 2px solid grey;
+            border-left: 2px solid ${({ theme }) => theme.navBorder};
         }
     }
 `;
